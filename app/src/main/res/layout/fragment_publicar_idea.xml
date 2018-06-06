@@ -5,9 +5,68 @@
     tools:context="com.proyecto.appsmoviles.neweco.PublicarIdea">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/titulo"
+            style="@style/Widget.AppCompat.EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tittle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
+            android:ems="10"
+            android:hint="Titulo de la idea"
+            android:inputType="text|textPersonName" />
+
+        <EditText
+            android:id="@+id/referencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/cuerpo"
+            android:layout_marginTop="31dp"
+            android:ems="10"
+            android:hint="Introduce algun enlace referente al tema"
+            android:inputType="text|textPersonName" />
+
+        <EditText
+            android:id="@+id/contacto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/referencia"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Contacto"
+            android:inputType="text|textPersonName" />
+
+        <EditText
+            android:id="@+id/cuerpo"
+            style="@android:style/Widget.DeviceDefault.Light.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/titulo"
+            android:layout_marginTop="26dp"
+            android:ems="10"
+            android:hint="Contenido de la idea"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/tittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="53dp"
+            android:gravity="center"
+            android:text="PUBLICA TU ECO IDEA"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+
+    </RelativeLayout>
 
 </FrameLayout>

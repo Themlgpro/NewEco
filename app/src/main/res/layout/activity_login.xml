@@ -10,10 +10,13 @@
         android:id="@+id/logIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Iniciar Sesion"
         android:onClick="logIn"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="231dp" />
+        android:text="Iniciar Sesion"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="255dp"
+        tools:ignore="MissingConstraints" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

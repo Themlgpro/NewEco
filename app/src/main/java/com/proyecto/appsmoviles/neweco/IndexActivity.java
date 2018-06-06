@@ -1,8 +1,11 @@
 package com.proyecto.appsmoviles.neweco;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,10 +15,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.widget.Toast;
+
+import com.proyecto.appsmoviles.neweco.Database.NewEco;
 
 public class IndexActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener {
 
+
+
+    private NewEco conexion;
+    private SQLiteDatabase bd;
+    PublicarIdea pi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +52,10 @@ public class IndexActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Inicializacion y creacion;
+        conexion = new NewEco(this,"NewEco",null,1);
+        bd = conexion.getWritableDatabase();
     }
 
     @Override
@@ -80,22 +96,36 @@ public class IndexActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.publicIdea) {
+
+            pi = new PublicarIdea();
+            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.contexto,pi);
+            transaction.commit();
+
         } else if (id == R.id.nav_gallery) {
+            Toast.makeText(this,"Publicar idea",Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.donaciones) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void publicarIdea(View view) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
