@@ -7,6 +7,17 @@
     tools:context="com.proyecto.appsmoviles.neweco.LoginActivity">
 
 
+   <com.google.android.gms.common.SignInButton
+       android:id="@+id/signInButton"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+   </com.google.android.gms.common.SignInButton>
+
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
