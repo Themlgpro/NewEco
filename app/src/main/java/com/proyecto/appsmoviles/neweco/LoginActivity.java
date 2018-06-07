@@ -7,14 +7,11 @@ import android.support.annotation.NonNull;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.net.nsd.NsdManager;
-import android.os.Parcelable;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -23,23 +20,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.proyecto.appsmoviles.neweco.Database.NewEco;
+import com.proyecto.appsmoviles.neweco.Mapping.usuario;
 
 
-public class LoginActivity extends AppCompatActivity implements  GoogleApiClient.OnConnectionFailedListener {
+
+public class LoginActivity extends AppCompatActivity implements  GoogleApiClient.OnConnectionFailedListener, RegistroLocal.OnFragmentInteractionListener {
 
     private SignInButton signInButton;
     private GoogleApiClient googleApiClient;
     public  static final int SIGN_IN_CODE =777;
-
-import android.widget.EditText;
-
-import com.proyecto.appsmoviles.neweco.Database.NewEco;
-import com.proyecto.appsmoviles.neweco.Mapping.usuario;
-import com.proyecto.appsmoviles.neweco.RegistroLocal.OnFragmentInteractionListener;
-
-
-public class LoginActivity extends AppCompatActivity implements OnFragmentInteractionListener {
-
     private Button ingresar, registrar;
     private EditText user, pass;
     private NewEco conexion;
@@ -86,16 +76,15 @@ public class LoginActivity extends AppCompatActivity implements OnFragmentIntera
     }
 
 
-
-
-
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
     public void logIn(View view) {
         String u,p;
-        u = user.getText().toString().trim(); p = pass.getText().toString().trim();
+        u = user.getText().toString().trim();
+        p = pass.getText().toString().trim();
         if(u.equals("") ||p.equals(""))
         {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
@@ -139,7 +128,6 @@ public class LoginActivity extends AppCompatActivity implements OnFragmentIntera
 
     }
 
-    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }

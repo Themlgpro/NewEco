@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1077659337894",
+    "firebase_url": "https://loginneweco.firebaseio.com",
+    "project_id": "loginneweco",
+    "storage_bucket": "loginneweco.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077659337894:android:4b645ae177e5307b",
+        "android_client_info": {
+          "package_name": "com.proyecto.appsmoviles.neweco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077659337894-qqln728tq5scp0qdr85g7oe506rjbip7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.proyecto.appsmoviles.neweco",
+            "certificate_hash": "2d8ec76540d6ab95d80f947a1c0422bad5d379e3"
+          }
+        },
+        {
+          "client_id": "1077659337894-2vjv8jl1816bu1m41k7dcqeks20nh1t1.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1077659337894-2vjv8jl1816bu1m41k7dcqeks20nh1t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByyAETPyVT9EDp5NDlBPLNPHtpSF4X7ws"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077659337894-2vjv8jl1816bu1m41k7dcqeks20nh1t1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
