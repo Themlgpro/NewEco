@@ -24,6 +24,7 @@ import android.support.v4.app.Fragment;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -83,6 +84,22 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         conexion = new NewEco(this,"NewEco",null,1);
         bd = conexion.getWritableDatabase();
 
+        //Recibiendo el usuario local
+        userData = new usuario(getIntent().getExtras().getString("Usuario"),getIntent().getExtras().getString("Correo"),
+                getIntent().getExtras().getString("idUsuario"));
+
+        TextView userName = (TextView) findViewById(R.id.userName);
+        TextView userContact = (TextView) findViewById(R.id.correoUsuario);
+
+
+        //System.out.println(userName.getText().toString().trim());
+
+
+        //userName.setText("Hola "+userData.getNombre()+", "+"estas en una sesion local.");
+        //userContact.setText(userData.getCorreo());
+
+        //GOOGLE
+
         photoImageView = (ImageView) findViewById(R.id.photoImageView);
         nameTextView = (TextView) findViewById(R.id.nameTextView);
         emailTextView = (TextView) findViewById(R.id.emailTextView);
@@ -124,11 +141,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
             nameTextView.setText(account.getDisplayName());
             emailTextView.setText(account.getEmail());
             idTextView.setText(account.getId());
-
-
-
-
-            //Glide.with(this).load(account.getPhotoUrl()).into(photoImageView);
+            Glide.with(this).load(account.getPhotoUrl()).into(photoImageView);
 
         } else {
             goLogInScreen();
@@ -164,23 +177,6 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
                 }
             }
         });
-        //Recibiendo el usuario local
-        userData = new usuario(getIntent().getExtras().getString("Usuario"),getIntent().getExtras().getString("Correo"),
-                getIntent().getExtras().getString("idUsuario"));
-
-        TextView userName = (TextView) findViewById(R.id.userName);
-        TextView userContact = (TextView) findViewById(R.id.correoUsuario);
-
-
-        //System.out.println(userName.getText().toString().trim());
-
-
-        //userName.setText("Hola "+userData.getNombre()+", "+"estas en una sesion local.");
-        //userContact.setText(userData.getCorreo());
-
-
-
-
     }
 
 
