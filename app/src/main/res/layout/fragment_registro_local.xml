@@ -1,0 +1,88 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.proyecto.appsmoviles.neweco.RegistroLocal"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BIENVENIDO"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresa tus datos para registrarte."
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="75dp" />
+
+        <EditText
+            android:id="@+id/nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Nombre"
+            android:inputType="text|textPersonName" />
+
+        <EditText
+            android:id="@+id/cedula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text|textPersonName"
+            android:hint="Cedula" />
+
+        <EditText
+            android:id="@+id/correo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingresa tu correo"
+            android:gravity="center"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Contraseña"
+            android:gravity="center"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/passConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Repite la contraseña"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/registrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Registrar" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

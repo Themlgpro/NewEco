@@ -15,8 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.ImageView;
+
+import android.support.v4.app.Fragment;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,13 +33,18 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.proyecto.appsmoviles.neweco.Database.NewEco;
+
 import com.google.android.gms.common.api.Status;
+
+import com.proyecto.appsmoviles.neweco.Mapping.usuario;
+
 
 public class IndexActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener{
 
 
     private NewEco conexion;
     private SQLiteDatabase bd;
+    private usuario userData;
     PublicarIdea pi;
 
 
@@ -73,7 +82,6 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         //Inicializacion y creacion;
         conexion = new NewEco(this,"NewEco",null,1);
         bd = conexion.getWritableDatabase();
-
 
         photoImageView = (ImageView) findViewById(R.id.photoImageView);
         nameTextView = (TextView) findViewById(R.id.nameTextView);
@@ -156,6 +164,23 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
                 }
             }
         });
+        //Recibiendo el usuario local
+        userData = new usuario(getIntent().getExtras().getString("Usuario"),getIntent().getExtras().getString("Correo"),
+                getIntent().getExtras().getString("idUsuario"));
+
+        TextView userName = (TextView) findViewById(R.id.userName);
+        TextView userContact = (TextView) findViewById(R.id.correoUsuario);
+
+
+        //System.out.println(userName.getText().toString().trim());
+
+
+        //userName.setText("Hola "+userData.getNombre()+", "+"estas en una sesion local.");
+        //userContact.setText(userData.getCorreo());
+
+
+
+
     }
 
 
