@@ -6,17 +6,103 @@
     android:layout_height="match_parent"
     tools:context="com.proyecto.appsmoviles.neweco.LoginActivity">
 
-    <Button
-        android:id="@+id/logIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logIn"
-        android:text="Iniciar Sesion"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="255dp"
-        tools:ignore="MissingConstraints" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BIENVENIDO"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresa tus credenciales para acceder a la app."
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="75dp" />
+
+        <EditText
+            android:id="@+id/usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="id"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Usuario"
+            android:inputType="textPersonName"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="113dp" />
+
+        <EditText
+            android:id="@+id/contraseña"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="pass"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="186dp" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/publicidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="433dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/logIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="logIn"
+                android:text="Iniciar Sesion"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="51dp"
+                tools:layout_editor_absoluteY="273dp" />
+
+            <Button
+                android:id="@+id/registrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="registrarUsuario"
+                android:text="Registrar"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="212dp"
+                tools:layout_editor_absoluteY="273dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/contexto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>
