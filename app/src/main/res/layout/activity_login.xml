@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.proyecto.appsmoviles.neweco.LoginActivity">
 
-    <Button
-        android:id="@+id/logIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logIn"
-        android:text="Iniciar Sesion"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="255dp"
-        tools:ignore="MissingConstraints" />
+   <com.google.android.gms.common.SignInButton
+       android:id="@+id/signInButton"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+   </com.google.android.gms.common.SignInButton>
+
+
+
 
 
 
