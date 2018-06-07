@@ -16,9 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proyecto.appsmoviles.neweco.Database.NewEco;
+import com.proyecto.appsmoviles.neweco.Mapping.usuario;
 
 public class IndexActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener {
@@ -27,6 +29,7 @@ public class IndexActivity extends AppCompatActivity
 
     private NewEco conexion;
     private SQLiteDatabase bd;
+    private usuario userData;
     PublicarIdea pi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,23 @@ public class IndexActivity extends AppCompatActivity
         //Inicializacion y creacion;
         conexion = new NewEco(this,"NewEco",null,1);
         bd = conexion.getWritableDatabase();
+
+        //Recibiendo el usuario local
+        userData = new usuario(getIntent().getExtras().getString("Usuario"),getIntent().getExtras().getString("Correo"),
+                getIntent().getExtras().getString("idUsuario"));
+
+        TextView userName = (TextView) findViewById(R.id.userName);
+        TextView userContact = (TextView) findViewById(R.id.correoUsuario);
+
+
+        //System.out.println(userName.getText().toString().trim());
+
+
+        //userName.setText("Hola "+userData.getNombre()+", "+"estas en una sesion local.");
+        //userContact.setText(userData.getCorreo());
+
+
+
     }
 
     @Override

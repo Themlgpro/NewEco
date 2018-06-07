@@ -66,6 +66,16 @@
             android:text="PUBLICA TU ECO IDEA"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
+        <Button
+            android:id="@+id/publicaIdea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="33dp"
+            android:onClick="postIdea"
+            android:text="Publicar Idea" />
+
 
     </RelativeLayout>
 

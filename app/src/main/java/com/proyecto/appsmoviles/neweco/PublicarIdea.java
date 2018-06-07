@@ -1,12 +1,18 @@
 package com.proyecto.appsmoviles.neweco;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.proyecto.appsmoviles.neweco.Database.NewEco;
 
 
 /**
@@ -26,6 +32,11 @@ public class PublicarIdea extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private EditText idUser, titulo, referencia, cuerpo, contacto;
+    private Button publicar;
+    private NewEco conexion;
+    private SQLiteDatabase db;
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,13 +69,24 @@ public class PublicarIdea extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        conexion = new NewEco(getContext(), "NewEco", null, 1);
+        db = conexion.getWritableDatabase();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_publicar_idea, container, false);
+        View indexView = inflater.inflate(R.layout.fragment_publicar_idea, container, false);
+
+        titulo = (EditText) indexView.findViewById(R.id.titulo);
+        cuerpo = (EditText) indexView.findViewById(R.id.cuerpo);
+        referencia = (EditText) indexView.findViewById(R.id.referencia);
+        contacto = (EditText) indexView.findViewById(R.id.contacto);
+
+        publicar = (Button) indexView.findViewById(R.id.publicIdea);
+
+        return indexView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +126,46 @@ public class PublicarIdea extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void postIdea(View view){
+
+        //Aqui se debe validar que la conectividad a internet.
+                //aca se hace la validacion y si hay conexion consumimos el api
+                //si no.....
+        //Preparando la data local
+        String tittle,content,reference,contact;
+
+        if (titulo.getText().toString().trim().length() == 0
+                ||cuerpo.getText().toString().trim().length() == 0
+                ||referencia.getText().toString().trim().length() == 0){
+
+            Toast.makeText(getActivity(),"Los campos Titulo, cuerpo y referencia son obligatorios.",Toast.LENGTH_LONG).show();
+
+        }else{
+            if(contacto.getText().toString().trim().length() == 0)
+            {
+                tittle = titulo.getText().toString().trim();
+                content = cuerpo.getText().toString().trim();
+                reference = referencia.getText().toString().trim();
+
+                //aqui lo que nos brinda la activity del usuario local como contacto.
+
+                //Se crea el Sql...
+            }
+            else{
+                //idUser = lo que tome del login local
+                tittle = titulo.getText().toString().trim();
+                content = cuerpo.getText().toString().trim();
+                reference = referencia.getText().toString().trim();
+                contact = contacto.getText().toString().trim();
+
+                //Sentencia y post local
+                String query = "insert into idea (usuario_cedula,titulo,cuerpo,referencia,contacto) values ('" + idUser + "','" + tittle + "','" + content+ "'," +
+                        "'" + reference + "','" + contact + "');";
+                db.execSQL(query);
+            }
+        }
+        Toast.makeText(getActivity(),"Hemos publicado tu idea.",Toast.LENGTH_LONG).show();
     }
 }
