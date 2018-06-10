@@ -3,6 +3,7 @@ package com.proyecto.appsmoviles.neweco;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.proyecto.appsmoviles.neweco.Database.NewEco;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 /**
@@ -33,7 +45,10 @@ public class PublicarIdea extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private EditText idUser, titulo, referencia, cuerpo, contacto;
+    private String correo, nombre;
+    private Boolean online;
+
+    private EditText idUser, titulo, referencia, cuerpo;
     private Button publicar;
     private NewEco conexion;
     private SQLiteDatabase db;
@@ -71,6 +86,9 @@ public class PublicarIdea extends Fragment {
         }
         conexion = new NewEco(getContext(), "NewEco", null, 1);
         db = conexion.getWritableDatabase();
+        this.correo =getArguments().getString("correo");
+        this.online =getArguments().getBoolean("conexion");
+        this.nombre =getArguments().getString("nombre");
     }
 
     @Override
@@ -82,9 +100,15 @@ public class PublicarIdea extends Fragment {
         titulo = (EditText) indexView.findViewById(R.id.titulo);
         cuerpo = (EditText) indexView.findViewById(R.id.cuerpo);
         referencia = (EditText) indexView.findViewById(R.id.referencia);
-        contacto = (EditText) indexView.findViewById(R.id.contacto);
 
         publicar = (Button) indexView.findViewById(R.id.publicIdea);
+
+        publicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postIdea(view);
+            }
+        });
 
         return indexView;
     }
@@ -129,43 +153,81 @@ public class PublicarIdea extends Fragment {
     }
 
     public void postIdea(View view){
-
-        //Aqui se debe validar que la conectividad a internet.
-                //aca se hace la validacion y si hay conexion consumimos el api
-                //si no.....
         //Preparando la data local
         String tittle,content,reference,contact;
+        tittle = titulo.getText().toString().trim();
+        content = cuerpo.getText().toString().trim();
+        reference = referencia.getText().toString().trim();
+        contact = correo;
+        //Aqui se debe validar que la conectividad a internet.
+        if(online){
+            postIdeaOnline(tittle,content,reference,correo,nombre);
+        }
+        else{
+            if (titulo.getText().toString().trim().length() == 0
+                    ||cuerpo.getText().toString().trim().length() == 0
+                    ||referencia.getText().toString().trim().length() == 0){
 
-        if (titulo.getText().toString().trim().length() == 0
-                ||cuerpo.getText().toString().trim().length() == 0
-                ||referencia.getText().toString().trim().length() == 0){
+                Toast.makeText(getActivity(),"Los campos Titulo, cuerpo y referencia son obligatorios.",Toast.LENGTH_LONG).show();
+            }else{
 
-            Toast.makeText(getActivity(),"Los campos Titulo, cuerpo y referencia son obligatorios.",Toast.LENGTH_LONG).show();
-
-        }else{
-            if(contacto.getText().toString().trim().length() == 0)
-            {
-                tittle = titulo.getText().toString().trim();
-                content = cuerpo.getText().toString().trim();
-                reference = referencia.getText().toString().trim();
-
-                //aqui lo que nos brinda la activity del usuario local como contacto.
-
-                //Se crea el Sql...
-            }
-            else{
-                //idUser = lo que tome del login local
-                tittle = titulo.getText().toString().trim();
-                content = cuerpo.getText().toString().trim();
-                reference = referencia.getText().toString().trim();
-                contact = contacto.getText().toString().trim();
 
                 //Sentencia y post local
                 String query = "insert into idea (usuario_cedula,titulo,cuerpo,referencia,contacto) values ('" + idUser + "','" + tittle + "','" + content+ "'," +
                         "'" + reference + "','" + contact + "');";
                 db.execSQL(query);
+                Toast.makeText(getActivity(),"Hemos publicado tu idea.",Toast.LENGTH_LONG).show();
             }
         }
-        Toast.makeText(getActivity(),"Hemos publicado tu idea.",Toast.LENGTH_LONG).show();
     }
+
+    private void postIdeaOnline(final String tittle, final String content, final String reference, final String contact, final String nombre) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                // Create URL
+                //putIdea
+
+                DataOutputStream posting;
+                URL apiEndpoint = null;
+                try {
+                    apiEndpoint = new URL("http://env-6490718.njs.jelastic.vps-host.net/Api/putIdea");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+                // Create connection
+                try {
+                    HttpsURLConnection myConnection =
+                            (HttpsURLConnection) apiEndpoint.openConnection();
+                    myConnection.setRequestMethod("POST");
+                    myConnection.setDoInput(true);
+                    myConnection.setDoOutput(true);
+
+                    JSONObject postDataParams = new JSONObject();
+                    try {
+                        postDataParams.put("titulo", tittle);
+                        postDataParams.put("cuerpo", content);
+                        postDataParams.put("referencia", reference);
+                        postDataParams.put("contacto", contact);
+                        postDataParams.put("nombre", nombre);
+
+                        posting = new DataOutputStream(myConnection.getOutputStream());
+                        posting.writeBytes(URLEncoder.encode(postDataParams.toString(),"UTF-8"));
+                        posting.flush ();
+                        posting.close ();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
 }
