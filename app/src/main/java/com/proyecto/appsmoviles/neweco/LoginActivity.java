@@ -22,6 +22,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.proyecto.appsmoviles.neweco.Database.NewEco;
 import com.proyecto.appsmoviles.neweco.Mapping.usuario;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
     private SQLiteDatabase bd;
     private usuario obj;
     private RegistroLocal reg;
+    private boolean bandera;
+    private AdView mAdView;
 
 
     @Override
@@ -43,14 +47,24 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        mAdView = (AdView)findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+       //AdSize adSize = new AdSize(300, 50);
+
+
+        mAdView.loadAd(adRequest);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
                 requestEmail()
                 .build();
-
+        bandera = false;
         googleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
+
+
 
         signInButton = (SignInButton)findViewById(R.id.signInButton);
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +78,8 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
         ingresar = (Button) findViewById(R.id.logIn);
         user = (EditText) findViewById(R.id.usuario);
         pass = (EditText) findViewById(R.id.contraseña);
+
+
 
         conexion= new NewEco(this,"NewEco",null,1);
     }
@@ -111,6 +127,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
                 logIn.putExtra("Usuario", c.getString(1));
                 logIn.putExtra("Correo", c.getString(3));
                 logIn.putExtra("idUsuario", c.getString(0));
+                logIn.putExtra("bandera", false);
                 startActivity(logIn);
 
             }else{
@@ -147,12 +164,19 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
     private void goMainScreen() {
         Intent intent = new Intent(this, IndexActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("Usuario", "");
+        intent.putExtra("Correo", "");
+        intent.putExtra("idUsuario", "");
+
         startActivity(intent);
     }
 
+
+    //Validacion
     private void handlesSignInResult(GoogleSignInResult result) {
         if(result.isSuccess()){
-            Toast.makeText(this,"WELCOME",Toast.LENGTH_SHORT).show();
+            bandera =true;
+            Toast.makeText(this,"Has iniciado sesion con Google.",Toast.LENGTH_SHORT).show();
             goMainScreen();
         }else {
             Toast.makeText(this,"no se pudo iniciar sesion",Toast.LENGTH_SHORT).show();
