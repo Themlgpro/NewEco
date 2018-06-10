@@ -1,6 +1,7 @@
 package com.proyecto.appsmoviles.neweco;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,10 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.widget.ImageView;
-
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.app.Fragment;
 
 import android.widget.TextView;
@@ -48,12 +51,12 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     private usuario userData;
     PublicarIdea pi;
 
-
-    private ImageView photoImageView;
+     GoogleSignInAccount account;
+    private ImageView photo;
     private TextView nameTextView;
     private TextView emailTextView;
     private TextView idTextView;
-
+    private LoginActivity la;
     private GoogleApiClient googleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,30 +83,15 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         //Inicializacion y creacion;
         conexion = new NewEco(this,"NewEco",null,1);
         bd = conexion.getWritableDatabase();
-
-        //Recibiendo el usuario local
-        userData = new usuario(getIntent().getExtras().getString("Usuario"),getIntent().getExtras().getString("Correo"),
-                getIntent().getExtras().getString("idUsuario"));
 
         TextView userName = (TextView) findViewById(R.id.userName);
         TextView userContact = (TextView) findViewById(R.id.correoUsuario);
 
 
-        //System.out.println(userName.getText().toString().trim());
-
-
-        //userName.setText("Hola "+userData.getNombre()+", "+"estas en una sesion local.");
-        //userContact.setText(userData.getCorreo());
-
-        //GOOGLE
-
-        photoImageView = (ImageView) findViewById(R.id.photoImageView);
-        nameTextView = (TextView) findViewById(R.id.nameTextView);
-        emailTextView = (TextView) findViewById(R.id.emailTextView);
-        idTextView = (TextView) findViewById(R.id.idTextView);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -113,6 +101,12 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        //Recibiendo el usuario local
+        userData = new usuario(getIntent().getExtras().getString("Usuario"),getIntent().getExtras().getString("Correo"),
+                getIntent().getExtras().getString("idUsuario"));
+        if(!getIntent().getExtras().getBoolean("bandera")){
+            configOffline();
+        }
     }
 
     @Override
@@ -136,18 +130,35 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
 
-            GoogleSignInAccount account = result.getSignInAccount();
+          account = result.getSignInAccount();
 
-            nameTextView.setText(account.getDisplayName());
-            emailTextView.setText(account.getEmail());
-            idTextView.setText(account.getId());
-            Glide.with(this).load(account.getPhotoUrl()).into(photoImageView);
+            configOnline();
+            userData = new usuario(account.getName(),account.getEmail(),"");
+           //
+
 
         } else {
-            goLogInScreen();
+           Toast.makeText(getApplicationContext(),"Has iniciado sesion local.", Toast.LENGTH_SHORT).show();
         }
     }
 
+
+     private void configOffline(){
+        View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
+        ((TextView) header.findViewById(R.id.userName)).setText(userData.getNombre());
+        ((TextView) header.findViewById(R.id.correoUsuario)).setText(userData.getCorreo());
+
+    }
+    private void configOnline(){
+        View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
+        ((TextView) header.findViewById(R.id.userName)).setText(account.getDisplayName());
+        ((TextView) header.findViewById(R.id.correoUsuario)).setText(account.getEmail());
+        photo = (ImageView) header.findViewById(R.id.fotoPerfil);
+
+       Glide.with(this).load(account.getPhotoUrl()).into(photo);
+
+
+    }
     private void goLogInScreen() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -166,18 +177,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         });
     }
 
-    public void revoke(View view) {
-        Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if (status.isSuccess()) {
-                    goLogInScreen();
-                } else {
-                    Toast.makeText(getApplicationContext(),"not close", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+
 
 
 
@@ -221,22 +221,22 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
 
         if (id == R.id.publicIdea) {
+            Toast.makeText(this,"Inicio",Toast.LENGTH_LONG).show();
 
+        } else if (id == R.id.nav_gallery) {
+            Toast.makeText(this,"Publicar idea",Toast.LENGTH_LONG).show();
             pi = new PublicarIdea();
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             transaction.replace(R.id.contexto,pi);
             transaction.commit();
 
-        } else if (id == R.id.nav_gallery) {
-            Toast.makeText(this,"Publicar idea",Toast.LENGTH_LONG).show();
-
         } else if (id == R.id.nav_slideshow) {
-
+            Toast.makeText(this,"Noticias",Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_manage) {
-
+            Toast.makeText(this,"Donaciones",Toast.LENGTH_LONG).show();
         } else if (id == R.id.donaciones) {
-
+            Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
