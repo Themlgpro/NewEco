@@ -1,7 +1,10 @@
 package com.proyecto.appsmoviles.neweco;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -88,17 +91,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         userData = new usuario(getIntent().getExtras().getString("Usuario"),getIntent().getExtras().getString("Correo"),
                 getIntent().getExtras().getString("idUsuario"));
 
-        TextView userName = (TextView) findViewById(R.id.userName);
-        TextView userContact = (TextView) findViewById(R.id.correoUsuario);
 
-
-        //System.out.println(userName.getText().toString().trim());
-
-
-        //userName.setText("Hola "+userData.getNombre()+", "+"estas en una sesion local.");
-        //userContact.setText(userData.getCorreo());
-
-        //GOOGLE
 
         photoImageView = (ImageView) findViewById(R.id.photoImageView);
         nameTextView = (TextView) findViewById(R.id.nameTextView);
@@ -221,8 +214,12 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
 
         if (id == R.id.publicIdea) {
-
+            Bundle data = new Bundle();
+            data.putString("correo", userData.getCorreo());
+            data.putBoolean("conexion",isNetDisponible());
+            pi.setArguments(data);
             pi = new PublicarIdea();
+
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             transaction.replace(R.id.contexto,pi);
@@ -257,5 +254,15 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private boolean isNetDisponible() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
+
+        return (actNetInfo != null && actNetInfo.isConnected());
     }
 }

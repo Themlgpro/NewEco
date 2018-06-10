@@ -32,16 +32,7 @@
             android:hint="Introduce algun enlace referente al tema"
             android:inputType="text|textPersonName" />
 
-        <EditText
-            android:id="@+id/contacto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/referencia"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="Contacto"
-            android:inputType="text|textPersonName" />
+
 
         <EditText
             android:id="@+id/cuerpo"
