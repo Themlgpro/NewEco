@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
                 logIn.putExtra("Usuario", c.getString(1));
                 logIn.putExtra("Correo", c.getString(3));
                 logIn.putExtra("idUsuario", c.getString(0));
+                System.out.println(c.getString(0));
                 logIn.putExtra("bandera", false);
                 startActivity(logIn);
 
