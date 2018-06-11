@@ -11,24 +11,25 @@
         <item
             android:id="@+id/publicIdea"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Inicio" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Noticias" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Donaciones" />
+        <item
+            android:id="@+id/google_map"
+            android:icon="@android:drawable/checkbox_on_background"
+            android:title="Saber mi ubicacion" />
+        <item
+            android:id="@+id/donaciones"
+            android:icon="@android:drawable/checkbox_on_background"
+            android:title="Cerrar sesion" />
     </group>
 
-    <item android:title="Donaciones">
-        <menu>
-            <item
-                android:id="@+id/donaciones"
-                android:icon="@android:drawable/checkbox_on_background"
-                android:title="Nombre de la pagina que desee que done" />
-        </menu>
-    </item>
+    
 
 </menu>

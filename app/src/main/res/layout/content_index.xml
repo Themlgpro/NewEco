@@ -10,6 +10,18 @@
     tools:showIn="@layout/app_bar_index">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+
+
     <ListView
         android:id="@+id/listaIdeas"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
