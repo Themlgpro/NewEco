@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -46,7 +47,7 @@ import com.google.android.gms.common.api.Status;
 import com.proyecto.appsmoviles.neweco.Mapping.usuario;
 
 
-public class IndexActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener{
+public class IndexActivity extends AppCompatActivity implements donacionesEcologicas.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener{
 
 
     private NewEco conexion;
@@ -60,6 +61,9 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
     private TextView emailTextView;
     private TextView idTextView;
     private LoginActivity la;
+    private  donacionesEcologicas donaEco;
+
+
     private GoogleApiClient googleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,22 +71,11 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_index);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -97,17 +90,8 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
                 getIntent().getExtras().getString("idUsuario"));
 
 
-
-        photoImageView = (ImageView) findViewById(R.id.photoImageView);
-        nameTextView = (TextView) findViewById(R.id.nameTextView);
-        emailTextView = (TextView) findViewById(R.id.emailTextView);
-        idTextView = (TextView) findViewById(R.id.idTextView);
-
         TextView userName = (TextView) findViewById(R.id.userName);
         TextView userContact = (TextView) findViewById(R.id.correoUsuario);
-
-
-
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -149,7 +133,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
           account = result.getSignInAccount();
 
             configOnline();
-            userData = new usuario(account.getName(),account.getEmail(),"");
+            userData = new usuario(account.getDisplayName(),account.getEmail(),"");
            //
 
 
@@ -223,9 +207,7 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -237,30 +219,44 @@ public class IndexActivity extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
 
         if (id == R.id.publicIdea) {
+            Toast.makeText(this,"Publicar idea",Toast.LENGTH_LONG).show();
 
-            Bundle data = new Bundle();
-            data.putString("correo", userData.getCorreo());
-            data.putBoolean("conexion",isNetDisponible());
-            pi.setArguments(data);
+
+        } else if (id == R.id.nav_gallery) {
 
             Toast.makeText(this,"Inicio",Toast.LENGTH_LONG).show();
 
-        } else if (id == R.id.nav_gallery) {
-            Toast.makeText(this,"Publicar idea",Toast.LENGTH_LONG).show();
-
-            pi = new PublicarIdea();
-
-            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-            transaction.replace(R.id.contexto,pi);
-            transaction.commit();
 
         } else if (id == R.id.nav_slideshow) {
             Toast.makeText(this,"Noticias",Toast.LENGTH_LONG).show();
+            Intent goToNoticias = new Intent(this,Noticias.class);
+            goToNoticias.addFlags(goToNoticias.FLAG_ACTIVITY_CLEAR_TOP | goToNoticias.FLAG_ACTIVITY_CLEAR_TASK);
+
+
+            goToNoticias.putExtra("Usuario", userData.getNombre());
+            goToNoticias.putExtra("Correo", userData.getCorreo());
+            goToNoticias.putExtra("idUsuario", userData.getCedula());
+
+            startActivity(goToNoticias);
+
         } else if (id == R.id.nav_manage) {
             Toast.makeText(this,"Donaciones",Toast.LENGTH_LONG).show();
+            donaEco = new donacionesEcologicas();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.contexto,donaEco);
+            transaction.commit();
+
         } else if (id == R.id.donaciones) {
-            Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
+            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                @Override
+                public void onResult(@NonNull Status status) {
+                    if (status.isSuccess()) {
+                        goLogInScreen();
+                    } else {
+                        Toast.makeText(getApplicationContext(),"not close", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -10,10 +10,12 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -24,6 +26,8 @@ import com.proyecto.appsmoviles.neweco.Database.NewEco;
 import com.proyecto.appsmoviles.neweco.Mapping.usuario;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.AdSize;
+
 
 
 
@@ -47,14 +51,20 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        AdSize adSize= new AdSize(321, 49);
         mAdView = (AdView)findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
-       //AdSize adSize = new AdSize(300, 50);
 
 
-        mAdView.loadAd(adRequest);
+
+       mAdView.loadAd(adRequest);
+
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
                 requestEmail()
                 .build();
@@ -181,6 +191,26 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
         }else {
             Toast.makeText(this,"no se pudo iniciar sesion",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 
 
