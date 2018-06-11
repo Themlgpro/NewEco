@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.proyecto.appsmoviles.neweco.Database.NewEco;
+import com.proyecto.appsmoviles.neweco.Database.postIdeas;
+import com.proyecto.appsmoviles.neweco.Mapping.idea;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -45,10 +49,10 @@ public class PublicarIdea extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String correo, nombre;
+    private String correo, nombre, idUser;
     private Boolean online;
 
-    private EditText idUser, titulo, referencia, cuerpo;
+    private EditText  titulo, referencia, cuerpo;
     private Button publicar;
     private NewEco conexion;
     private SQLiteDatabase db;
@@ -89,6 +93,7 @@ public class PublicarIdea extends Fragment {
         this.correo =getArguments().getString("correo");
         this.online =getArguments().getBoolean("conexion");
         this.nombre =getArguments().getString("nombre");
+        this.idUser = getArguments().getString("idUsuario");
     }
 
     @Override
@@ -101,9 +106,9 @@ public class PublicarIdea extends Fragment {
         cuerpo = (EditText) indexView.findViewById(R.id.cuerpo);
         referencia = (EditText) indexView.findViewById(R.id.referencia);
 
-        publicar = (Button) indexView.findViewById(R.id.publicIdea);
+        publicar = (Button) indexView.findViewById(R.id.publicaIdea);
 
-        publicar.setOnClickListener(new View.OnClickListener() {
+       publicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 postIdea(view);
@@ -159,9 +164,11 @@ public class PublicarIdea extends Fragment {
         content = cuerpo.getText().toString().trim();
         reference = referencia.getText().toString().trim();
         contact = correo;
-        //Aqui se debe validar que la conectividad a internet.
+        Toast.makeText(getActivity(),"Entro al metodo.",Toast.LENGTH_LONG).show();
+        //Aqui se debe validar la conectividad a internet.
         if(online){
-            postIdeaOnline(tittle,content,reference,correo,nombre);
+            Toast.makeText(getActivity(),"Post Online",Toast.LENGTH_LONG).show();
+            postIdeaOnline(tittle,content,reference,contact,nombre);
         }
         else{
             if (titulo.getText().toString().trim().length() == 0
@@ -171,9 +178,9 @@ public class PublicarIdea extends Fragment {
                 Toast.makeText(getActivity(),"Los campos Titulo, cuerpo y referencia son obligatorios.",Toast.LENGTH_LONG).show();
             }else{
 
-
+                System.out.println(this.idUser);
                 //Sentencia y post local
-                String query = "insert into idea (usuario_cedula,titulo,cuerpo,referencia,contacto) values ('" + idUser + "','" + tittle + "','" + content+ "'," +
+                String query = "insert into idea (usuario_cedula,titulo,cuerpo,referencia,contacto) values ('" + this.idUser + "','" + tittle + "','" + content+ "'," +
                         "'" + reference + "','" + contact + "');";
                 db.execSQL(query);
                 Toast.makeText(getActivity(),"Hemos publicado tu idea.",Toast.LENGTH_LONG).show();
@@ -182,51 +189,7 @@ public class PublicarIdea extends Fragment {
     }
 
     private void postIdeaOnline(final String tittle, final String content, final String reference, final String contact, final String nombre) {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                // Create URL
-                //putIdea
-
-                DataOutputStream posting;
-                URL apiEndpoint = null;
-                try {
-                    apiEndpoint = new URL("http://env-6490718.njs.jelastic.vps-host.net/Api/putIdea");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
-                // Create connection
-                try {
-                    HttpsURLConnection myConnection =
-                            (HttpsURLConnection) apiEndpoint.openConnection();
-                    myConnection.setRequestMethod("POST");
-                    myConnection.setDoInput(true);
-                    myConnection.setDoOutput(true);
-
-                    JSONObject postDataParams = new JSONObject();
-                    try {
-                        postDataParams.put("titulo", tittle);
-                        postDataParams.put("cuerpo", content);
-                        postDataParams.put("referencia", reference);
-                        postDataParams.put("contacto", contact);
-                        postDataParams.put("nombre", nombre);
-
-                        posting = new DataOutputStream(myConnection.getOutputStream());
-                        posting.writeBytes(URLEncoder.encode(postDataParams.toString(),"UTF-8"));
-                        posting.flush ();
-                        posting.close ();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        new postIdeas().execute(new idea(nombre,contact,content,tittle,reference));
     }
 
 

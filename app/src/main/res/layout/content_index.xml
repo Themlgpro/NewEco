@@ -2,31 +2,23 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contenido"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.proyecto.appsmoviles.neweco.IndexActivity"
     tools:showIn="@layout/app_bar_index">
 
-    <LinearLayout
+
+    <ListView
+        android:id="@+id/listaIdeas"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_green_light"
+        android:divider="@android:color/holo_green_dark"
+        android:dividerHeight="@dimen/nav_header_vertical_spacing">
 
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="log_out"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:onClick="logOut"
-            />
-
-    </LinearLayout>
-
-
-
+    </ListView>
 </android.support.constraint.ConstraintLayout>
 
