@@ -23,6 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.proyecto.appsmoviles.neweco.Database.NewEco;
+import com.proyecto.appsmoviles.neweco.Database.pendingIdeas;
 import com.proyecto.appsmoviles.neweco.Mapping.usuario;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
 
 
         conexion= new NewEco(this,"NewEco",null,1);
+
     }
 
     public void registrarUsuario (View view){

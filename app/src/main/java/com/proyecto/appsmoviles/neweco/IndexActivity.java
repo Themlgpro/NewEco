@@ -51,6 +51,7 @@ import com.proyecto.appsmoviles.neweco.Database.NewEco;
 import com.google.android.gms.common.api.Status;
 
 import com.proyecto.appsmoviles.neweco.Database.getIdeas;
+import com.proyecto.appsmoviles.neweco.Database.pendingIdeas;
 import com.proyecto.appsmoviles.neweco.Mapping.usuario;
 
 import org.json.JSONException;
@@ -135,6 +136,14 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
 
         if (!getIntent().getExtras().getBoolean("bandera")) {
             configOffline();
+        }
+
+        if(isNetDisponible()){
+            new pendingIdeas().execute(conexion,userData.getNombre());
+            System.out.println("Subimos todas las ideas que publicaste fuera de linea.");
+        }
+        else{
+            System.out.println("NO Subimos todas las ideas que publicaste fuera de linea.");
         }
 
         new getIdeas(this).execute("http://env-4185869.njs.jelastic.vps-host.net/idea");
@@ -372,25 +381,24 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
         this.ideas = output;
         System.out.println("La data:" + this.ideas);
         if(this.ideas == null){
-            Toast.makeText(getApplicationContext(),"No hay registros online",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"No estas en linea.",Toast.LENGTH_LONG).show();
         }
         else{
-            try {
-                do {
-                    String obj = null;
-                    int inicio = this.ideas.indexOf("{");
-                    int fin = this.ideas.indexOf("}");
+            do {
+                String obj = null;
+                int inicio = this.ideas.indexOf("{");
+                int fin = this.ideas.indexOf("}");
+                try{
                     System.out.println(this.ideas.substring(inicio, fin + 1));
                     obj = this.ideas.substring(inicio, fin + 1);
                     this.ideas = this.ideas.replace(this.ideas.substring(inicio, fin + 1), "");
                     //System.out.println(this.ideas);
                     this.ideasJson = new JSONObject(obj);
                     listIdeas.add(ideasJson);
-
-                }while (this.ideas.endsWith("}]"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                }catch (Exception e){
+                    Toast.makeText(this,"No hay registros online aun.",Toast.LENGTH_LONG).show();
+                }
+            }while (this.ideas.endsWith("}]"));
             setElementsOnIndex();
         }
 

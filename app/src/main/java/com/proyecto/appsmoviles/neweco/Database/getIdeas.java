@@ -56,7 +56,7 @@ public class getIdeas extends AsyncTask<String,String,String>{
                 return this.data;
 
             } else {
-                // Error handling code goes here
+                return "";
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
