@@ -155,8 +155,6 @@ public class PublicarIdea extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-
-        void processFinish(String output);
     }
 
     public void postIdea(View view){

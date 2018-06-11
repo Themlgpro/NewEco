@@ -58,7 +58,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class IndexActivity extends AppCompatActivity implements donacionesEcologicas.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener, AsyncResponse{
+public class IndexActivity extends AppCompatActivity implements donacionesEcologicas.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener{
 
     private NewEco conexion;
     private SQLiteDatabase bd;
@@ -72,7 +72,7 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
     private GoogleSignInAccount account;
     private ImageView photo;
     private LoginActivity la;
-    private donacionesEcologicas donaEco;
+    private  donacionesEcologicas donaEco;
 
 
     private GoogleApiClient googleApiClient;
@@ -94,7 +94,14 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
 
         //---------------------------------------------------------
 
-
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -288,20 +295,10 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
 
 
         if (id == R.id.publicIdea) {
-            Toast.makeText(this, "Publicar idea", Toast.LENGTH_LONG).show();
-            Bundle data = new Bundle();
-            data.putString("correo", userData.getCorreo());
-            data.putBoolean("conexion", isNetDisponible());
-            data.putString("nombre",userData.getNombre());
-            data.putString("idUsuario",userData.getCedula());
-            pi = new PublicarIdea();
-            pi.setArguments(data);
-            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.contexto, pi);
-            transaction.commit();
+            Toast.makeText(this,"Publicar idea",Toast.LENGTH_LONG).show();
 
 
-        } else if (id == R.id.inicio) {
+        } else if (id == R.id.nav_gallery) {
 
             Toast.makeText(this,"Inicio",Toast.LENGTH_LONG).show();
 
@@ -337,9 +334,33 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
                 }
             });
 
+        if (id == R.id.inicio) {
 
+
+            Toast.makeText(this, "Inicio", Toast.LENGTH_LONG).show();
+
+        } else if (id == R.id.publicIdea) {
+            Toast.makeText(this, "Publicar idea", Toast.LENGTH_LONG).show();
+            Bundle data = new Bundle();
+            data.putString("correo", userData.getCorreo());
+            data.putBoolean("conexion", isNetDisponible());
+            data.putString("nombre",userData.getNombre());
+            data.putString("idUsuario",userData.getCedula());
+            pi = new PublicarIdea();
+            pi.setArguments(data);
+            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.contexto, pi);
+            transaction.commit();
+
+        } else if (id == R.id.nav_slideshow) {
+            Toast.makeText(this, "Noticias", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_manage) {
+            Toast.makeText(this, "Donaciones", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.donaciones) {
+            Toast.makeText(this, "Log out", Toast.LENGTH_LONG).show();
 
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
