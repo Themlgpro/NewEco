@@ -191,6 +191,7 @@ public class LoginActivity extends AppCompatActivity implements  GoogleApiClient
             goMainScreen();
         }else {
             Toast.makeText(this,"no se pudo iniciar sesion",Toast.LENGTH_SHORT).show();
+            System.out.println(result.getStatus().toString());
         }
     }
 
