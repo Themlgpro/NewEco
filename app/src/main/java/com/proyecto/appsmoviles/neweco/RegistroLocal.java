@@ -38,6 +38,7 @@ public class RegistroLocal extends Fragment {
 
     private EditText name,id,pass1,pass2,email;
     private Button registrar;
+    private Button irInicio;
     View indexView;
 
     private NewEco conexion;
@@ -90,13 +91,26 @@ public class RegistroLocal extends Fragment {
         email = (EditText) indexView.findViewById(R.id.correo);
         name = (EditText) indexView.findViewById(R.id.nombre);
         registrar = (Button) indexView.findViewById(R.id.registrar);
+        irInicio = (Button) indexView.findViewById(R.id.irInicio);
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 regUser(view);
             }
         });
+        irInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irHome(view);
+            }
 
+            private void irHome(View view) {
+                Toast.makeText(getActivity(),"Volver",Toast.LENGTH_LONG).show();
+                Intent goToInicio = new Intent(getActivity(),LoginActivity.class);
+                goToInicio.addFlags(goToInicio.FLAG_ACTIVITY_CLEAR_TOP | goToInicio.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(goToInicio);
+            }
+        });
         return indexView;
 
 

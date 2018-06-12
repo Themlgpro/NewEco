@@ -311,8 +311,13 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
 
 
         } else if (id == R.id.inicio) {
-
             Toast.makeText(this,"Inicio",Toast.LENGTH_LONG).show();
+            Intent goToInicio = new Intent(this,IndexActivity.class);
+            goToInicio.addFlags(goToInicio.FLAG_ACTIVITY_CLEAR_TOP | goToInicio.FLAG_ACTIVITY_CLEAR_TASK);
+            goToInicio.putExtra("Usuario", userData.getNombre());
+            goToInicio.putExtra("Correo", userData.getCorreo());
+            goToInicio.putExtra("idUsuario", userData.getCedula());
+            startActivity(goToInicio);
 
 
         } else if (id == R.id.nav_slideshow) {

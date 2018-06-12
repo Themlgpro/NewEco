@@ -1,6 +1,7 @@
 package com.proyecto.appsmoviles.neweco;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -166,11 +167,24 @@ public class PublicarIdea extends Fragment {
         content = cuerpo.getText().toString().trim();
         reference = referencia.getText().toString().trim();
         contact = correo;
-        Toast.makeText(getActivity(),"Entro al metodo.",Toast.LENGTH_LONG).show();
+
         //Aqui se debe validar la conectividad a internet.
         if(online){
-            Toast.makeText(getActivity(),"Post Online",Toast.LENGTH_LONG).show();
-            postIdeaOnline(tittle,content,reference,contact,nombre);
+            if(titulo.getText().toString().trim().length() == 0
+                    ||cuerpo.getText().toString().trim().length() == 0
+                    ||referencia.getText().toString().trim().length() == 0) {
+                Toast.makeText(getActivity(),"Los campos Titulo, cuerpo y referencia son obligatorios.",Toast.LENGTH_LONG).show();
+            }else {
+
+                Toast.makeText(getActivity(), "Post Online", Toast.LENGTH_LONG).show();
+                postIdeaOnline(tittle, content, reference, contact, nombre);
+                Intent intent = new Intent(getActivity(), IndexActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Usuario", this.nombre);
+                intent.putExtra("Correo", this.correo);
+                intent.putExtra("idUsuario", this.idUser);
+                startActivity(intent);
+            }
         }
         else{
             if (titulo.getText().toString().trim().length() == 0
@@ -186,9 +200,17 @@ public class PublicarIdea extends Fragment {
                         "'" + reference + "','" + contact + "');";
                 db.execSQL(query);
                 Toast.makeText(getActivity(),"Hemos publicado tu idea.",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), IndexActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Usuario",this.nombre);
+                intent.putExtra("Correo", this.correo);
+                intent.putExtra("idUsuario", this.idUser);
+                startActivity(intent);
+
             }
         }
     }
+
 
     private void postIdeaOnline(final String tittle, final String content, final String reference, final String contact, final String nombre) {
         new postIdeas().execute(new idea(nombre,contact,content,tittle,reference));

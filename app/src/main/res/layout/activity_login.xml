@@ -8,147 +8,152 @@
     tools:context="com.proyecto.appsmoviles.neweco.LoginActivity">
 
 
-    <FrameLayout
-        android:id="@+id/contexto"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="495dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="match_parent">
 
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="BIENVENIDO"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                app:layout_constraintBottom_toTopOf="@+id/textView4"
-                app:layout_constraintStart_toStartOf="@+id/usuario"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="174dp"
-                android:gravity="center"
-                android:text="Ingresa tus credenciales"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
-
-            <EditText
-                android:id="@+id/usuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="id"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Usuario"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                tools:ignore="MissingConstraints" />
-
-            <EditText
-                android:id="@+id/contraseña"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
-                android:contentDescription="pass"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="@+id/usuario"
-                app:layout_constraintTop_toTopOf="@+id/usuario"
-                tools:ignore="MissingConstraints" />
-
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/signInButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="137dp"
-                android:layout_marginLeft="137dp"
-                android:layout_marginRight="137dp"
-                android:layout_marginStart="137dp"
-                app:layout_constraintEnd_toEndOf="@+id/registrar"
-                app:layout_constraintStart_toStartOf="@+id/logIn"
-                app:layout_constraintTop_toBottomOf="@+id/contraseña">
-
-            </com.google.android.gms.common.SignInButton>
-
-
-            <Button
-                android:id="@+id/logIn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#ffffff"
-                android:onClick="logIn"
-                android:text="Iniciar Sesion"
-                app:layout_constraintBaseline_toBaselineOf="@+id/registrar"
-                app:layout_constraintEnd_toStartOf="@+id/registrar"
-
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints" />
-
-            <Button
-                android:id="@+id/registrar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#ffffff"
-                android:onClick="registrarUsuario"
-                android:text="Registrar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/logIn"
-                app:layout_constraintTop_toBottomOf="@+id/signInButton"
-                tools:ignore="MissingConstraints" />
-
-
-        </android.support.constraint.ConstraintLayout>
-
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/contexto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="40dp"
-            android:layout_weight="1">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="BIENVENIDO"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    app:layout_constraintBottom_toTopOf="@+id/textView4"
+                    app:layout_constraintStart_toStartOf="@+id/usuario"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="174dp"
+                    android:gravity="center"
+                    android:text="Ingresa tus credenciales"
+                    android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="id"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Usuario"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/contraseña"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:contentDescription="pass"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    app:layout_constraintStart_toStartOf="@+id/usuario"
+                    app:layout_constraintTop_toTopOf="@+id/usuario"
+                    tools:ignore="MissingConstraints" />
+
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/signInButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="137dp"
+                    android:layout_marginLeft="137dp"
+                    android:layout_marginRight="137dp"
+                    android:layout_marginStart="137dp"
+                    app:layout_constraintEnd_toEndOf="@+id/registrar"
+                    app:layout_constraintStart_toStartOf="@+id/logIn"
+                    app:layout_constraintTop_toBottomOf="@+id/contraseña">
+
+                </com.google.android.gms.common.SignInButton>
+
+
+                <Button
+                    android:id="@+id/logIn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#ffffff"
+                    android:onClick="logIn"
+                    android:text="Iniciar Sesion"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/registrar"
+                    app:layout_constraintEnd_toStartOf="@+id/registrar"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <Button
+                    android:id="@+id/registrar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#ffffff"
+                    android:onClick="registrarUsuario"
+                    android:text="Registrar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/logIn"
+                    app:layout_constraintTop_toBottomOf="@+id/signInButton"
+                    tools:ignore="MissingConstraints" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:foregroundGravity="bottom"
+                android:paddingTop="40dp">
 
-                app:adSize="BANNER"
-                app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:foregroundGravity="bottom"
 
-                tools:layout_editor_absoluteX="32dp"
-                tools:layout_editor_absoluteY="419dp">
-                >
-            </com.google.android.gms.ads.AdView>
-        </RelativeLayout>
+                    app:adSize="BANNER"
+                    app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+
+                    tools:layout_editor_absoluteX="32dp"
+                    tools:layout_editor_absoluteY="419dp">
+                    >
+                </com.google.android.gms.ads.AdView>
+            </RelativeLayout>
 
 
-    </FrameLayout>
+        </FrameLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
