@@ -34,6 +34,7 @@ public class Noticias extends AppCompatActivity implements  national.OnFragmentI
         setContentView(R.layout.activity_noticias);
         menu = (TabLayout) findViewById(R.id.menu);
         menu.setTabMode(TabLayout.MODE_SCROLLABLE);
+        irNational();
 
         menu.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -57,23 +58,6 @@ public class Noticias extends AppCompatActivity implements  national.OnFragmentI
                 }
             }
 
-            private void irEcoportal() {
-                eco = new ecoportal();
-                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                transaction.replace(R.id.noticiaas,eco);
-                transaction.commit();
-            }
-
-
-            private void irNational() {
-                na = new national();
-                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                transaction.replace(R.id.noticiaas,na);
-                transaction.commit();
-            }
-
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
@@ -91,5 +75,22 @@ public class Noticias extends AppCompatActivity implements  national.OnFragmentI
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    private void irEcoportal() {
+        eco = new ecoportal();
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.noticiaas,eco);
+        transaction.commit();
+    }
+
+
+    private void irNational() {
+        na = new national();
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.noticiaas,na);
+        transaction.commit();
     }
 }

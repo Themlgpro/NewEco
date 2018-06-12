@@ -95,9 +95,6 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
 
         //---------------------------------------------------------
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -116,12 +113,6 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
         userData = new usuario(getIntent().getExtras().getString("Usuario"), getIntent().getExtras().getString("Correo"),
                 getIntent().getExtras().getString("idUsuario"));
 
-
-
-        TextView userName = (TextView) findViewById(R.id.userName);
-        TextView userContact = (TextView) findViewById(R.id.correoUsuario);
-
-        System.out.println(userData.getCedula());
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -146,7 +137,25 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
             System.out.println("NO Subimos todas las ideas que publicaste fuera de linea.");
         }
 
-        new getIdeas(this).execute("http://env-4185869.njs.jelastic.vps-host.net/idea");
+        if(isNetDisponible()){
+            new getIdeas(this).execute("http://env-4185869.njs.jelastic.vps-host.net/idea");
+        }else{
+            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                    //set icon
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    //set title
+                    .setTitle("No tienes conexion a internet.")
+                    //set message
+                    .setMessage("Para ver las ideas que han posteado conectate a internet")
+                    //set positive button
+                    .setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(getApplicationContext(),"No esperes mucho para conectarte.",Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .show();
+        }
         listaIdeas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -320,7 +329,7 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
             startActivity(goToInicio);
 
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.noticias) {
             Toast.makeText(this,"Noticias",Toast.LENGTH_LONG).show();
             Intent goToNoticias = new Intent(this,Noticias.class);
             goToNoticias.addFlags(goToNoticias.FLAG_ACTIVITY_CLEAR_TOP | goToNoticias.FLAG_ACTIVITY_CLEAR_TASK);
@@ -332,14 +341,14 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
 
             startActivity(goToNoticias);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.donaciones) {
             Toast.makeText(this,"Donaciones",Toast.LENGTH_LONG).show();
             donaEco = new donacionesEcologicas();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.contexto,donaEco);
             transaction.commit();
 
-        } else if (id == R.id.donaciones) {
+        } else if (id == R.id.cerrarSesion) {
             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                 @Override
                 public void onResult(@NonNull Status status) {
@@ -350,10 +359,10 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
                     }
                 }
             });
-
-
-
+        }else if(id == R.id.miUbicacion){
+            //Aca infla el fragmento con la ubicacion
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
