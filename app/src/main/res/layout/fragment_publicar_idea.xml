@@ -2,70 +2,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@drawable/neweco5"
     tools:context="com.proyecto.appsmoviles.neweco.PublicarIdea">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tittle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="53dp"
             android:gravity="center"
-            android:text="PUBLICA TU ECO IDEA"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.DialogWindowTitle" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/titulo"
-            style="@style/Widget.AppCompat.EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/cuerpo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
-            android:ems="10"
-            android:hint="Titulo de la idea"
-            android:inputType="text|textPersonName" />
+            <TextView
+                android:id="@+id/tittle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="53dp"
+                android:gravity="center"
+                android:text="PUBLICA TU ECO IDEA"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.DialogWindowTitle" />
 
-        <EditText
-            android:id="@+id/cuerpo"
-            style="@android:style/Widget.DeviceDefault.Light.EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:hint="Contenido de la idea"
-            android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/titulo"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/cuerpo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="24dp"
+                android:ems="10"
+                android:hint="Titulo de la idea"
+                android:inputType="text|textPersonName"
+                android:paddingTop="40dp" />
 
-        <EditText
-            android:id="@+id/referencia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/publicaIdea"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="66dp"
-            android:ems="10"
-            android:hint="Introduce algun enlace referente al tema"
-            android:inputType="text|textPersonName" />
+            <EditText
+                android:id="@+id/cuerpo"
+                style="@android:style/Widget.DeviceDefault.Light.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:ems="10"
+                android:hint="Contenido de la idea"
+                android:inputType="textMultiLine"
+                android:paddingTop="40dp" />
 
-        <Button
-            android:id="@+id/publicaIdea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="33dp"
-            android:contentDescription="Si no tienes internet, se guardara local."
-            android:onClick="postIdea"
-            android:text="Publicar Idea" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/referencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/publicaIdea"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="66dp"
+                android:ems="10"
+                android:hint="Introduce algun enlace referente al tema"
+                android:inputType="text|textPersonName"
+                android:paddingTop="40dp" />
+
+            <Button
+                android:id="@+id/publicaIdea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="33dp"
+                android:contentDescription="Si no tienes internet, se guardara local."
+                android:gravity="center"
+                android:onClick="postIdea"
+                android:text="Publicar Idea" />
+        </LinearLayout>
+    </ScrollView>
+
 </FrameLayout>
