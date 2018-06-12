@@ -1,6 +1,7 @@
 package com.proyecto.appsmoviles.neweco;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -200,12 +202,27 @@ public class PublicarIdea extends Fragment {
                         "'" + reference + "','" + contact + "');";
                 db.execSQL(query);
                 Toast.makeText(getActivity(),"Hemos publicado tu idea.",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), IndexActivity.class);
+                final Intent intent = new Intent(getActivity(), IndexActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("Usuario",this.nombre);
                 intent.putExtra("Correo", this.correo);
                 intent.putExtra("idUsuario", this.idUser);
-                startActivity(intent);
+
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                        //set icon
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        //set title
+                        .setTitle("No tienes conexion a internet.")
+                        //set message
+                        .setMessage("Sin embargo, tu idea fue guardada en el dispositivo y sera publicada cuando tengas conexion.")
+                        //set positive button
+                        .setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
 
             }
         }

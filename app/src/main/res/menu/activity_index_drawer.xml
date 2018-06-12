@@ -7,26 +7,26 @@
         <item
             android:id="@+id/publicIdea"
             android:icon="@android:drawable/ic_input_add"
-            android:title="Publicar una idea" />
+            android:title="Deja huella - Publica tu idea" />
         <item
             android:id="@+id/inicio"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Inicio" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/noticias"
+            android:icon="@android:drawable/ic_menu_search"
             android:title="Noticias" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Donaciones" />
+            android:id="@+id/donaciones"
+            android:icon="?android:attr/fingerprintAuthDrawable"
+            android:title="Deja huella - Donaciones" />
         <item
-            android:id="@+id/google_map"
-            android:icon="@android:drawable/checkbox_on_background"
+            android:id="@+id/miUbicacion"
+            android:icon="@android:drawable/ic_menu_mapmode"
             android:title="Saber mi ubicacion" />
         <item
-            android:id="@+id/donaciones"
-            android:icon="@android:drawable/checkbox_on_background"
+            android:id="@+id/cerrarSesion"
+            android:icon="@android:drawable/btn_dialog"
             android:title="Cerrar sesion" />
     </group>
 

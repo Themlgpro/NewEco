@@ -1,18 +1,9 @@
 package com.proyecto.appsmoviles.neweco.Database;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
-import android.widget.Toast;
-
-import com.proyecto.appsmoviles.neweco.IndexActivity;
-import com.proyecto.appsmoviles.neweco.LoginActivity;
-import com.proyecto.appsmoviles.neweco.MD5;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
