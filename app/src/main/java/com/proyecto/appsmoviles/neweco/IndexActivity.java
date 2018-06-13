@@ -59,7 +59,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class IndexActivity extends AppCompatActivity implements donacionesEcologicas.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener, AsyncResponse{
+public class IndexActivity extends AppCompatActivity implements donacionesEcologicas.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener, PublicarIdea.OnFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener, AsyncResponse, Mapas.OnFragmentInteractionListener{
 
     private NewEco conexion;
     private SQLiteDatabase bd;
@@ -74,6 +74,7 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
     private ImageView photo;
     private LoginActivity la;
     private donacionesEcologicas donaEco;
+    private Mapas ubicacion;
 
 
     private GoogleApiClient googleApiClient;
@@ -361,6 +362,16 @@ public class IndexActivity extends AppCompatActivity implements donacionesEcolog
             });
         }else if(id == R.id.miUbicacion){
             //Aca infla el fragmento con la ubicacion
+            if(ubicacion instanceof Mapas){
+
+            }
+            else {
+                Toast.makeText(this, "Ubicación", Toast.LENGTH_LONG).show();
+                ubicacion = new Mapas();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.contexto, ubicacion);
+                transaction.commit();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
